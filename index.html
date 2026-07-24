@@ -30,283 +30,500 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* الطباعة والتصدير الاحترافي لـ PDF بنظام الصفحات المتعددة */
+        /* إخفاء حاوية التصدير في وضع التصفح العادي */
+        @media screen {
+            .print-only { display: none !important; }
+        }
+
+        /* ================= محرك تصدير الـ PDF (طراز TIKSLY FUNNEL) ================= */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 6mm;
+                margin: 0mm;
             }
 
             body {
-                background: #ffffff !important;
-                color: #0f172a !important;
-                font-family: 'Tajawal', 'Cairo', sans-serif !important;
-                padding: 0 !important;
+                background-color: #121212 !important;
+                color: #ffffff !important;
+                font-family: 'Cairo', sans-serif !important;
                 margin: 0 !important;
+                padding: 0 !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
 
-            .no-print, button, nav, header, footer {
+            /* إخفاء واجهة الويب التقليدية بالكامل عند الطباعة */
+            .web-only, header, footer, button, nav {
                 display: none !important;
             }
 
-            .page-break {
-                page-break-after: always !important;
-                break-after: page !important;
-                height: 285mm !important;
-                max-height: 285mm !important;
-                padding: 2mm !important;
-                box-sizing: border-box !important;
-                display: flex !important;
-                flex-direction: column !important;
-                background: #ffffff !important;
-                overflow: hidden !important;
+            /* إظهار حاوية Tiksly فقط */
+            .print-only {
+                display: block !important;
             }
 
-            .page-break:last-child {
+            /* إعداد كل صفحة A4 لتكون مستقلة تماماً بدون تداخل */
+            .tiksly-page {
+                page-break-after: always !important;
+                break-after: page !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                padding: 8mm 10mm !important;
+                box-sizing: border-box !important;
+                background-color: #121212 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                overflow: hidden !important;
+                position: relative;
+            }
+
+            .tiksly-page:last-child {
                 page-break-after: avoid !important;
                 break-after: avoid !important;
             }
 
-            textarea {
-                border: none !important;
-                outline: none !important;
-                background: transparent !important;
-                resize: none !important;
-                box-shadow: none !important;
-                width: 100% !important;
-                font-size: 8.5pt !important;
-                line-height: 1.35 !important;
-                color: #334155 !important;
-                font-family: 'Tajawal', 'Cairo', sans-serif !important;
-            }
-
-            .print-header {
-                display: flex !important;
-                justify-content: space-between;
-                align-items: flex-start;
-                border-bottom: 2px solid #0f172a;
-                padding-bottom: 4px;
-                margin-bottom: 6px;
-                flex-shrink: 0;
-            }
-
-            .plan-card {
-                border: 1.5px solid #cbd5e1 !important;
-                border-radius: 5px !important;
-                padding: 6px 10px !important;
-                background-color: #ffffff !important;
-                margin-bottom: 5px !important;
-                flex: 1 !important;
+            /* أسطوانة القمع المركزية (Cylinder) */
+            .funnel-cylinder {
+                background: linear-gradient(135deg, #84cc16 0%, #4d7c0f 100%) !important;
+                border: 2px solid #a3e635 !important;
+                border-radius: 14px !important;
+                color: #000000 !important;
+                font-weight: 900 !important;
+                text-align: center !important;
+                box-shadow: 0 4px 15px rgba(132, 204, 22, 0.2) !important;
                 display: flex !important;
                 flex-direction: column !important;
-                box-shadow: none !important;
-                break-inside: avoid !important;
-                page-break-inside: avoid !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 8px 4px !important;
             }
 
-            .phase-1-border { border-right: 4px solid #2563eb !important; }
-            .phase-2-border { border-right: 4px solid #0d9488 !important; }
-            .phase-3-border { border-right: 4px solid #7c3aed !important; }
-        }
+            /* مربعات المعلومات الجانبية الداكنة بإطار أخضر */
+            .funnel-card {
+                background-color: #18181b !important;
+                border: 1.5px solid #84cc16 !important;
+                border-radius: 12px !important;
+                padding: 10px 12px !important;
+                color: #ffffff !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
 
-        .print-header { display: none; }
+            .badge-invest {
+                display: inline-block !important;
+                background-color: rgba(132, 204, 22, 0.15) !important;
+                border: 1px solid rgba(132, 204, 22, 0.4) !important;
+                color: #a3e635 !important;
+                padding: 2px 6px !important;
+                border-radius: 4px !important;
+                font-size: 7.5pt !important;
+                font-weight: bold !important;
+                margin-top: 4px !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
 
-    <!-- Header (Web Only) -->
-    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 no-print">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-chart-pie text-xl"></i>
+    <!-- ================= واجهة الويب (WEB ONLY) - نفس تصميمك المفضل ================= -->
+    <div class="web-only flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/30">
+                        <i class="fa-solid fa-chart-pie text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent" data-i18n="mainTitle">خطة التسويق</h1>
+                        <p class="text-xs text-slate-400" data-i18n="mainSubtitle">وثيقة التخطيط الاستراتيجي التنفيذي</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent" data-i18n="mainTitle">خطة التسويق</h1>
-                    <p class="text-xs text-slate-400" data-i18n="mainSubtitle">وثيقة التخطيط الاستراتيجي التنفيذي</p>
+                <div class="flex items-center gap-3 flex-wrap">
+                    <button onclick="toggleLanguage()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-3 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+                        <i class="fa-solid fa-language"></i> <span id="langBtnText">English</span>
+                    </button>
+                    <button onclick="savePlan()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
+                        <i class="fa-solid fa-floppy-disk"></i> <span data-i18n="saveBtn">حفظ التغييرات</span>
+                    </button>
+                    <button onclick="preparePrint(); window.print();" class="bg-lime-500 hover:bg-lime-400 text-black font-bold px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-lg shadow-lime-500/20">
+                        <i class="fa-solid fa-print"></i> <span data-i18n="printBtn">طباعة / تصدير PDF (Tiksly Funnel)</span>
+                    </button>
+                    <button onclick="resetPlan()" class="bg-rose-950/50 hover:bg-rose-900/50 text-rose-300 border border-rose-800/50 px-3 py-2 rounded-lg text-sm transition" title="إفراغ الخطة">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
                 </div>
             </div>
-            <div class="flex items-center gap-3 flex-wrap">
-                <button onclick="toggleLanguage()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-3 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
-                    <i class="fa-solid fa-language"></i> <span id="langBtnText">English</span>
-                </button>
-                <button onclick="savePlan()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
-                    <i class="fa-solid fa-floppy-disk"></i> <span data-i18n="saveBtn">حفظ التغييرات</span>
-                </button>
-                <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-lg shadow-indigo-600/20">
-                    <i class="fa-solid fa-print"></i> <span data-i18n="printBtn">طباعة / تصدير PDF</span>
-                </button>
-                <button onclick="resetPlan()" class="bg-rose-950/50 hover:bg-rose-900/50 text-rose-300 border border-rose-800/50 px-3 py-2 rounded-lg text-sm transition" title="إفراغ الخطة">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-10">
+            <!-- Phase 1 -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <span class="bg-blue-600/20 text-blue-400 text-xs px-2.5 py-1 rounded-md font-bold">المرحلة الأولى</span>
+                    <h2 class="text-lg font-bold text-slate-200">الوعي والجذب والوصول (Awareness & Reach)</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-blue-400" data-i18n="box1Title">1. السوق المستهدف (Target Market)</span>
+                        </div>
+                        <textarea id="box1" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل السوق المستهدف..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-blue-400" data-i18n="box2Title">2. الرسالة والعرض (USP & Value Offer)</span>
+                        </div>
+                        <textarea id="box2" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل الرسالة والعرض..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-blue-400" data-i18n="box3Title">3. قنوات الوصول (Media Channels)</span>
+                        </div>
+                        <textarea id="box3" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل القنوات والوسائط..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <span class="bg-teal-600/20 text-teal-400 text-xs px-2.5 py-1 rounded-md font-bold">المرحلة الثانية</span>
+                    <h2 class="text-lg font-bold text-slate-200">الاهتمام ورعاية العملاء والتحويل (Leads & Conversion)</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-teal-400" data-i18n="box4Title">4. التقاط المهتمين (Lead Capture)</span>
+                        </div>
+                        <textarea id="box4" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل التقاط المهتمين..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-teal-400" data-i18n="box5Title">5. رعاية المهتمين (Lead Nurturing)</span>
+                        </div>
+                        <textarea id="box5" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل رعاية المهتمين..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-teal-400" data-i18n="box6Title">6. تحويل المبيعات (Sales Conversion)</span>
+                        </div>
+                        <textarea id="box6" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل تحويل المبيعات..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <span class="bg-purple-600/20 text-purple-400 text-xs px-2.5 py-1 rounded-md font-bold">المرحلة الثالثة</span>
+                    <h2 class="text-lg font-bold text-slate-200">الولاء والتوسع ونظام الإحالات (Retention & Scaling)</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-purple-400" data-i18n="box7Title">7. تجربة عالمية (World-Class Experience)</span>
+                        </div>
+                        <textarea id="box7" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل تجربة العملاء..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-purple-400" data-i18n="box8Title">8. زيادة القيمة الدائمة (Lifetime Value - LTV)</span>
+                        </div>
+                        <textarea id="box8" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل زيادة القيمة الدائمة..."></textarea>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl flex flex-col h-64">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-purple-400" data-i18n="box9Title">9. نظام الإحالات والترشيحات (Referrals)</span>
+                        </div>
+                        <textarea id="box9" class="w-full flex-grow bg-slate-900/60 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل نظام الإحالات..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+            <p>نظام التخطيط الاستراتيجي التفاعلي - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+
+    <!-- ================= واجهة الطباعة وتصدير PDF (PRINT ONLY - TIKSLY DESIGN) ================= -->
+    <div class="print-only" dir="ltr">
+
+        <!-- PAGE 1: AWARENESS & ATTRACTION -->
+        <div class="tiksly-page">
+            <!-- Header Logo & Title -->
+            <div class="text-center space-y-1">
+                <div class="flex items-center justify-center gap-2 text-lime-400 font-black text-sm tracking-widest uppercase">
+                    <span class="bg-lime-400 text-black px-1.5 py-0.5 rounded text-xs">t</span> TIKSLY PLANNER
+                </div>
+                <h1 class="text-2xl font-black tracking-wide text-white uppercase">
+                    THE MARKETING <span class="bg-lime-400 text-black px-2 py-0.5 rounded">FUNNEL</span>
+                </h1>
+                <p class="text-[8pt] text-gray-400">PHASE 1: AWARENESS & REACH STRATEGY</p>
+            </div>
+
+            <!-- Funnel Flow (3 Rows) -->
+            <div class="flex flex-col justify-between flex-grow my-4 space-y-3">
+                <!-- Row 1: Target Market -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">1. Target Market Plan:</span>
+                        <p id="print_box1" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">TARGET MARKET</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">AWARENESS</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Key Metrics & Focus:</span>
+                        <p class="text-[7.5pt] text-gray-300">Market size, Demographic precision, Customer pain points identification.</p>
+                        <span class="badge-invest mt-2">High Research Investment</span>
+                    </div>
+                </div>
+
+                <!-- Row 2: USP & Value Offer -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">2. USP & Offer Strategy:</span>
+                        <p id="print_box2" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">VALUE OFFER</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">INTEREST</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics & Positioning:</span>
+                        <p class="text-[7.5pt] text-gray-300">Irresistible offer creation, Competitive differentiation, Value stacking.</p>
+                        <span class="badge-invest mt-2">High Value Investment</span>
+                    </div>
+                </div>
+
+                <!-- Row 3: Media Channels -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">3. Media Channels Plan:</span>
+                        <p id="print_box3" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">CHANNELS</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">TRAFFIC</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics:</span>
+                        <p class="text-[7.5pt] text-gray-300">• Social Media Ads & Retargeting<br>• SEO & Content Marketing<br>• Strategic Partnerships</p>
+                        <span class="badge-invest mt-2">High Time & Budget Investment</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Quote -->
+            <div class="text-center pt-3 border-t border-gray-800 space-y-1">
+                <p class="text-[8.5pt] font-bold text-gray-200">
+                    Remember: <span class="text-lime-400">Funnel = Sequence, Skip steps, and Growth stalls.</span>
+                </p>
+                <div class="flex justify-center items-center gap-4 text-[7.5pt] text-gray-400">
+                    <span>🌐 Tiksly.com</span>
+                    <span>📘 📸 | Tiksly</span>
+                    <span>Page 1 of 3</span>
+                </div>
             </div>
         </div>
-    </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
-        
-        <!-- ================= PAGE 1: PHASE 1 ================= -->
-        <div class="page-break">
-            <div class="print-header">
-                <div>
-                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
-                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+        <!-- PAGE 2: LEADS & CONVERSION -->
+        <div class="tiksly-page">
+            <!-- Header Logo & Title -->
+            <div class="text-center space-y-1">
+                <div class="flex items-center justify-center gap-2 text-lime-400 font-black text-sm tracking-widest uppercase">
+                    <span class="bg-lime-400 text-black px-1.5 py-0.5 rounded text-xs">t</span> TIKSLY PLANNER
                 </div>
-                <div class="text-left">
-                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
+                <h1 class="text-2xl font-black tracking-wide text-white uppercase">
+                    THE MARKETING <span class="bg-lime-400 text-black px-2 py-0.5 rounded">FUNNEL</span>
+                </h1>
+                <p class="text-[8pt] text-gray-400">PHASE 2: LEADS & SALES CONVERSION STRATEGY</p>
+            </div>
+
+            <!-- Funnel Flow (3 Rows) -->
+            <div class="flex flex-col justify-between flex-grow my-4 space-y-3">
+                <!-- Row 4: Lead Capture -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">4. Lead Capture Plan:</span>
+                        <p id="print_box4" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">LEAD CAPTURE</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">CONSIDERATION</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Key Metrics:</span>
+                        <p class="text-[7.5pt] text-gray-300">Landing page CVR, Cost Per Lead (CPL), Email subscriber growth rate.</p>
+                        <span class="badge-invest mt-2">Moderate Time Investment</span>
+                    </div>
+                </div>
+
+                <!-- Row 5: Lead Nurturing -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">5. Lead Nurturing Plan:</span>
+                        <p id="print_box5" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">NURTURING</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">ENGAGEMENT</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics:</span>
+                        <p class="text-[7.5pt] text-gray-300">• Automated Email Sequences<br>• Case Studies & Proofs<br>• Retargeting Educational Ads</p>
+                        <span class="badge-invest mt-2">High Automation Investment</span>
+                    </div>
+                </div>
+
+                <!-- Row 6: Sales Conversion -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">6. Sales Conversion Plan:</span>
+                        <p id="print_box6" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">CONVERSION</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">SALES</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics & Metrics:</span>
+                        <p class="text-[7.5pt] text-gray-300">Sales conversion rate, Average Order Value (AOV), Limited-time incentives.</p>
+                        <span class="badge-invest mt-2">Low Time / High Impact</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-2">
-                <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-blue-400" data-i18n="box1Title">1. السوق المستهدف (Target Market)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag1">تحديد العميل المثالي</span>
-                    </div>
-                    <textarea id="box1" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل السوق المستهدف..."></textarea>
-                </div>
-                <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-blue-400" data-i18n="box2Title">2. الرسالة والعرض (USP & Value Offer)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag2">عامل التميز</span>
-                    </div>
-                    <textarea id="box2" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل الرسالة والعرض..."></textarea>
-                </div>
-                <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-blue-400" data-i18n="box3Title">3. قنوات الإعلانات والوصول (Media Channels)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag3">وسائل الاستقطاب</span>
-                    </div>
-                    <textarea id="box3" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل القنوات والوسائط..."></textarea>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= PAGE 2: PHASE 2 ================= -->
-        <div class="page-break">
-            <div class="print-header">
-                <div>
-                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
-                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
-                </div>
-                <div class="text-left">
-                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
-                </div>
-            </div>
-
-            <div class="flex flex-col flex-grow gap-2">
-                <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-teal-400" data-i18n="box4Title">4. التقاط المهتمين (Lead Capture)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag4">مناطيس العملاء</span>
-                    </div>
-                    <textarea id="box4" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل التقاط المهتمين..."></textarea>
-                </div>
-                <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-teal-400" data-i18n="box5Title">5. رعاية المهتمين (Lead Nurturing)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag5">بناء الثقة</span>
-                    </div>
-                    <textarea id="box5" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل رعاية المهتمين..."></textarea>
-                </div>
-                <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-teal-400" data-i18n="box6Title">6. تحويل المبيعات (Sales Conversion)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag6">إبرام الصفقة</span>
-                    </div>
-                    <textarea id="box6" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل تحويل المبيعات..."></textarea>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= PAGE 3: PHASE 3 ================= -->
-        <div class="page-break">
-            <div class="print-header">
-                <div>
-                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
-                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
-                </div>
-                <div class="text-left">
-                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
-                </div>
-            </div>
-
-            <div class="flex flex-col flex-grow gap-2">
-                <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-purple-400" data-i18n="box7Title">7. تجربة عالمية (World-Class Experience)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag7">إبهار العميل</span>
-                    </div>
-                    <textarea id="box7" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل تجربة العملاء..."></textarea>
-                </div>
-                <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-purple-400" data-i18n="box8Title">8. زيادة القيمة الدائمة (Lifetime Value - LTV)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag8">الترقيات والخدمات الإضافية</span>
-                    </div>
-                    <textarea id="box8" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل زيادة القيمة الدائمة..."></textarea>
-                </div>
-                <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs font-bold text-purple-400" data-i18n="box9Title">9. نظام الإحالات والترشيحات (Referrals)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag9">سفراء العلامة التجارية</span>
-                    </div>
-                    <textarea id="box9" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل نظام الإحالات..."></textarea>
+            <!-- Footer Quote -->
+            <div class="text-center pt-3 border-t border-gray-800 space-y-1">
+                <p class="text-[8.5pt] font-bold text-gray-200">
+                    Remember: <span class="text-lime-400">Funnel = Sequence, Skip steps, and Growth stalls.</span>
+                </p>
+                <div class="flex justify-center items-center gap-4 text-[7.5pt] text-gray-400">
+                    <span>🌐 Tiksly.com</span>
+                    <span>📘 📸 | Tiksly</span>
+                    <span>Page 2 of 3</span>
                 </div>
             </div>
         </div>
 
-    </main>
+        <!-- PAGE 3: RETENTION & SCALING -->
+        <div class="tiksly-page">
+            <!-- Header Logo & Title -->
+            <div class="text-center space-y-1">
+                <div class="flex items-center justify-center gap-2 text-lime-400 font-black text-sm tracking-widest uppercase">
+                    <span class="bg-lime-400 text-black px-1.5 py-0.5 rounded text-xs">t</span> TIKSLY PLANNER
+                </div>
+                <h1 class="text-2xl font-black tracking-wide text-white uppercase">
+                    THE MARKETING <span class="bg-lime-400 text-black px-2 py-0.5 rounded">FUNNEL</span>
+                </h1>
+                <p class="text-[8pt] text-gray-400">PHASE 3: RETENTION, LTV & ADVOCACY STRATEGY</p>
+            </div>
 
-    <!-- Footer (Web Only) -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500 no-print">
-        <p>نظام التخطيط الاستراتيجي التفاعلي - جميع الحقوق محفوظة</p>
-    </footer>
+            <!-- Funnel Flow (3 Rows) -->
+            <div class="flex flex-col justify-between flex-grow my-4 space-y-3">
+                <!-- Row 7: Experience -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">7. Client Experience Plan:</span>
+                        <p id="print_box7" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">EXPERIENCE</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">RETENTION</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Key Metrics:</span>
+                        <p class="text-[7.5pt] text-gray-300">Customer Satisfaction (CSAT), Net Promoter Score (NPS), Onboarding speed.</p>
+                        <span class="badge-invest mt-2">Long Term Investment</span>
+                    </div>
+                </div>
 
-    <!-- JavaScript Logic & Translation Dictionaries -->
+                <!-- Row 8: Lifetime Value -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">8. LTV Expansion Plan:</span>
+                        <p id="print_box8" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">LTV GROWTH</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">UPSELL / CROSS-SELL</span>
+                        <i class="fa-solid fa-arrow-down text-white text-xs mt-1"></i>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics:</span>
+                        <p class="text-[7.5pt] text-gray-300">• Premium Upsells & Add-ons<br>• Subscription / Loyalty Programs<br>• Exclusive VIP Offers</p>
+                        <span class="badge-invest mt-2">High Revenue Return</span>
+                    </div>
+                </div>
+
+                <!-- Row 9: Referrals -->
+                <div class="grid grid-cols-3 gap-3 items-center flex-1">
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[9pt] mb-1">9. Referral System Plan:</span>
+                        <p id="print_box9" class="text-[8pt] text-gray-200 leading-relaxed whitespace-pre-wrap font-sans"></p>
+                    </div>
+                    <div class="funnel-cylinder h-20">
+                        <span class="text-xs font-black tracking-wider">REFERRALS</span>
+                        <span class="text-[7pt] font-semibold mt-0.5">ADVOCACY</span>
+                    </div>
+                    <div class="funnel-card h-full">
+                        <span class="text-lime-400 font-bold text-[8.5pt] mb-1">Tactics & Metrics:</span>
+                        <p class="text-[7.5pt] text-gray-300">Viral coefficient, Affiliate rewards, Automated testimonial & review generation.</p>
+                        <span class="badge-invest mt-2">Organic Growth Engine</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Quote -->
+            <div class="text-center pt-3 border-t border-gray-800 space-y-1">
+                <p class="text-[8.5pt] font-bold text-gray-200">
+                    Remember: <span class="text-lime-400">Funnel = Sequence, Skip steps, and Growth stalls.</span>
+                </p>
+                <div class="flex justify-center items-center gap-4 text-[7.5pt] text-gray-400">
+                    <span>🌐 Tiksly.com</span>
+                    <span>📘 📸 | Tiksly</span>
+                    <span>Page 3 of 3</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
     <script>
         const translations = {
             ar: {
                 mainTitle: "خطة التسويق",
                 mainSubtitle: "وثيقة التخطيط الاستراتيجي التنفيذي",
                 saveBtn: "حفظ التغييرات",
-                printBtn: "طباعة / تصدير PDF",
-                printTopSub: "STRATEGIC MARKETING PLAN",
-                printTitle1: "خطة التسويق",
-                printTitle2: "خطة التسويق",
-                printTitle3: "خطة التسويق",
-                printDocType: "الوثيقة الاستراتيجية للنمو والتوسع",
-                companyName: "شركة الرؤية المستقبلية",
-                p1Indicator: "الصفحة 1 من 3",
-                p2Indicator: "الصفحة 2 من 3",
-                p3Indicator: "الصفحة 3 من 3",
+                printBtn: "طباعة / تصدير PDF (Tiksly Funnel)",
                 box1Title: "1. السوق المستهدف (Target Market)",
                 box2Title: "2. الرسالة والعرض (USP & Value Offer)",
-                box3Title: "3. قنوات الإعلانات والوصول (Media Channels)",
+                box3Title: "3. قنوات الوصول (Media Channels)",
                 box4Title: "4. التقاط المهتمين (Lead Capture)",
                 box5Title: "5. رعاية المهتمين (Lead Nurturing)",
                 box6Title: "6. تحويل المبيعات (Sales Conversion)",
                 box7Title: "7. تجربة عالمية (World-Class Experience)",
                 box8Title: "8. زيادة القيمة الدائمة (Lifetime Value - LTV)",
                 box9Title: "9. نظام الإحالات والترشيحات (Referrals)",
-                tag1: "تحديد العميل المثالي",
-                tag2: "عامل التميز",
-                tag3: "وسائل الاستقطاب",
-                tag4: "مناطيس العملاء",
-                tag5: "بناء الثقة",
-                tag6: "إبرام الصفقة",
-                tag7: "إبهار العميل",
-                tag8: "الترقيات والخدمات الإضافية",
-                tag9: "سفراء العلامة التجارية",
                 ph1Place: "أدخل تفاصيل السوق المستهدف...",
                 ph2Place: "أدخل تفاصيل الرسالة والعرض...",
                 ph3Place: "أدخل تفاصيل القنوات والوسائط...",
@@ -321,16 +538,7 @@
                 mainTitle: "Strategic Marketing Plan",
                 mainSubtitle: "Executive Strategic Planning Document",
                 saveBtn: "Save Changes",
-                printBtn: "Print / Export PDF",
-                printTopSub: "STRATEGIC MARKETING PLAN",
-                printTitle1: "Marketing Plan",
-                printTitle2: "Marketing Plan",
-                printTitle3: "Marketing Plan",
-                printDocType: "Strategic Growth & Expansion Document",
-                companyName: "Future Vision Company",
-                p1Indicator: "Page 1 of 3",
-                p2Indicator: "Page 2 of 3",
-                p3Indicator: "Page 3 of 3",
+                printBtn: "Print / Export PDF (Tiksly Funnel)",
                 box1Title: "1. Target Market",
                 box2Title: "2. USP & Value Offer",
                 box3Title: "3. Media Channels",
@@ -340,15 +548,6 @@
                 box7Title: "7. World-Class Experience",
                 box8Title: "8. Lifetime Value (LTV)",
                 box9Title: "9. Referral System",
-                tag1: "Ideal Client",
-                tag2: "Differentiation",
-                tag3: "Media & Reach",
-                tag4: "Lead Magnet",
-                tag5: "Trust Building",
-                tag6: "Closing",
-                tag7: "Delight",
-                tag8: "Upsell & Value",
-                tag9: "Brand Advocates",
                 ph1Place: "Enter target market details...",
                 ph2Place: "Enter USP & value offer details...",
                 ph3Place: "Enter media channels details...",
@@ -435,6 +634,27 @@
                 localStorage.removeItem('marketingPlanData');
             }
         }
+
+        // تجهيز النصوص ونقلها إلى قالب الطباعة التفاعلي قبل تصدير الـ PDF مباشرة
+        function preparePrint() {
+            for (let i = 1; i <= 9; i++) {
+                const val = document.getElementById('box' + i).value;
+                const printEl = document.getElementById('print_box' + i);
+                if (printEl) {
+                    if (val && val.trim() !== '') {
+                        printEl.innerText = val;
+                        printEl.classList.remove('text-gray-500', 'italic');
+                        printEl.classList.add('text-gray-200');
+                    } else {
+                        printEl.innerText = (currentLang === 'ar' ? '[ لم يتم إدخال تفاصيل لهذه المرحلة في الخطة بعد ]' : '[ No details entered for this step yet ]');
+                        printEl.classList.add('text-gray-500', 'italic');
+                        printEl.classList.remove('text-gray-200');
+                    }
+                }
+            }
+        }
+
+        window.addEventListener('beforeprint', preparePrint);
 
         window.onload = function() {
             applyLanguage(currentLang);
