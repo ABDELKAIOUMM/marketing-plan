@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خطة التسويق</title>
+    <title id="pageTitle">خطة التسويق - Strategic Marketing Plan</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -58,7 +58,7 @@
                 break-after: page !important;
                 min-height: 100vh !important;
                 height: 297mm;
-                padding: 14mm 12mm !important;
+                padding: 12mm 10mm !important;
                 box-sizing: border-box !important;
                 display: flex !important;
                 flex-direction: column !important;
@@ -79,26 +79,27 @@
                 font-family: 'Tajawal', 'Cairo', sans-serif !important;
             }
 
-            /* ترويسة التقرير المطبوع لكل صفحة */
+            /* ترويسة التقرير المطبوع لكل صفحة متوافقة مع الصورة */
             .print-header {
                 display: flex !important;
                 justify-content: space-between;
-                align-items: center;
-                border-bottom: 2px solid #e2e8f0;
-                padding-bottom: 10px;
-                margin-bottom: 14px;
+                align-items: flex-start;
+                border-bottom: 2px solid #0f172a;
+                padding-bottom: 8px;
+                margin-bottom: 12px;
             }
 
             /* حاويات البطاقات */
             .plan-card {
-                border: 1px solid #e2e8f0 !important;
+                border: 1.5px solid #cbd5e1 !important;
                 border-radius: 8px !important;
-                padding: 12px 16px !important;
-                background-color: #f8fafc !important;
+                padding: 10px 14px !important;
+                background-color: #ffffff !important;
                 margin-bottom: 10px !important;
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
+                box-shadow: none !important;
             }
 
             /* الحدود الملونة المميزة لكل مرحلة */
@@ -106,12 +107,12 @@
             .phase-2-border { border-right: 4px solid #0d9488 !important; }
             .phase-3-border { border-right: 4px solid #7c3aed !important; }
 
-            .phase-banner-print {
-                padding: 8px 12px;
+            .print-banner {
+                padding: 6px 12px;
                 border-radius: 6px;
                 font-weight: 700;
-                font-size: 11pt;
-                margin-bottom: 12px;
+                font-size: 10pt;
+                margin-bottom: 10px;
                 color: white !important;
             }
             .bg-banner-1 { background-color: #2563eb !important; }
@@ -119,7 +120,6 @@
             .bg-banner-3 { background-color: #7c3aed !important; }
         }
 
-        /* إخفاء عناصر الطباعة في العرض العادي على الويب */
         .print-header { display: none; }
     </style>
 </head>
@@ -133,16 +133,20 @@
                     <i class="fa-solid fa-chart-pie text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">خطة التسويق</h1>
-                    <p class="text-xs text-slate-400">وثيقة التخطيط الاستراتيجي التنفيذي</p>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent" data-i18n="mainTitle">خطة التسويق</h1>
+                    <p class="text-xs text-slate-400" data-i18n="mainSubtitle">وثيقة التخطيط الاستراتيجي التنفيذي</p>
                 </div>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
+                <!-- Language Switcher Button -->
+                <button onclick="toggleLanguage()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-3 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+                    <i class="fa-solid fa-language"></i> <span id="langBtnText">English</span>
+                </button>
                 <button onclick="savePlan()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
-                    <i class="fa-solid fa-floppy-disk"></i> حفظ التغييرات
+                    <i class="fa-solid fa-floppy-disk"></i> <span data-i18n="saveBtn">حفظ التغييرات</span>
                 </button>
                 <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 shadow-lg shadow-indigo-600/20">
-                    <i class="fa-solid fa-print"></i> طباعة / تصدير PDF
+                    <i class="fa-solid fa-print"></i> <span data-i18n="printBtn">طباعة / تصدير PDF</span>
                 </button>
                 <button onclick="resetPlan()" class="bg-rose-950/50 hover:bg-rose-900/50 text-rose-300 border border-rose-800/50 px-3 py-2 rounded-lg text-sm transition" title="إفراغ الخطة">
                     <i class="fa-solid fa-rotate-right"></i>
@@ -154,145 +158,133 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
         
-        <!-- ================= PAGE 1: PHASE 1 (قبل) ================= -->
+        <!-- ================= PAGE 1: PHASE 1 ================= -->
         <div class="page-break space-y-4">
             <!-- Print Header Page 1 -->
             <div class="print-header">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
-                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
+                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
+                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 1 من 3</span>
+                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
+                    <span class="text-[8pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
                 </div>
             </div>
 
-            <!-- Web Title Phase 1 -->
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
-                <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الأولى</span>
-                <h2 class="text-lg font-bold text-blue-400">مرحلة "قبل" (السوق المستهدف والرسالة وجذب الانتباه)</h2>
-            </div>
+            <div class="print-banner bg-banner-1 no-print hidden" data-i18n="banner1">المرحلة الأولى: مرحلة "قبل" (السوق المستهدف والرسالة وجذب الانتباه)</div>
 
-            <div class="phase-banner-print bg-banner-1 no-print hidden">المرحلة الأولى: قبل (السوق المستهدف والرسالة وجذب الانتباه)</div>
-
-            <div class="flex flex-col flex-grow gap-4">
+            <div class="flex flex-col flex-grow gap-3">
                 <!-- Card 1 -->
                 <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-blue-400">1. السوق المستهدف (Target Market)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">جمهورك المثالي</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-blue-400" data-i18n="box1Title">1. السوق المستهدف (Target Market)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag1">تحديد العميل المثالي</span>
                     </div>
-                    <textarea id="box1" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="من هو عميلك المثالي؟ ما هي مواصفاته وأحلامه ومشاكله؟"></textarea>
+                    <textarea id="box1" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل السوق المستهدف..."></textarea>
                 </div>
                 <!-- Card 2 -->
                 <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-blue-400">2. الرسالة والعرض (USP & Value Offer)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">عرض البيع الفريد</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-blue-400" data-i18n="box2Title">2. الرسالة والعرض (USP & Value Offer)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag2">عامل التميز</span>
                     </div>
-                    <textarea id="box2" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="ما هي الرسالة التي ستوجهها لهم؟ ولماذا يجب أن يختاروك أنت بالذات؟"></textarea>
+                    <textarea id="box2" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل الرسالة والعرض..."></textarea>
                 </div>
                 <!-- Card 3 -->
                 <div class="plan-card phase-1-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-blue-400">3. قنوات الإعلانات والوصول (Media Channels)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">الوصول للجمهور</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-blue-400" data-i18n="box3Title">3. قنوات الإعلانات والوصول (Media Channels)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag3">وسائل الاستقطاب</span>
                     </div>
-                    <textarea id="box3" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="ما هي الوسائط والقنوات التي ستستخدمها للوصول إليهم؟"></textarea>
+                    <textarea id="box3" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="أدخل تفاصيل القنوات والوسائط..."></textarea>
                 </div>
             </div>
         </div>
 
-        <!-- ================= PAGE 2: PHASE 2 (أثناء) ================= -->
+        <!-- ================= PAGE 2: PHASE 2 ================= -->
         <div class="page-break space-y-4">
             <!-- Print Header Page 2 -->
             <div class="print-header">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
-                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
+                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
+                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 2 من 3</span>
+                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
+                    <span class="text-[8pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
                 </div>
             </div>
 
-            <!-- Web Title Phase 2 -->
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
-                <span class="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثانية</span>
-                <h2 class="text-lg font-bold text-teal-400">مرحلة "أثناء" (التقاط المهتمين ورعايتهم وإتمام البيع)</h2>
-            </div>
-
-            <div class="flex flex-col flex-grow gap-4">
+            <div class="flex flex-col flex-grow gap-3">
                 <!-- Card 4 -->
                 <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-teal-400">4. التقاط المهتمين (Lead Capture)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">استراتيجية الجذب</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-teal-400" data-i18n="box4Title">4. التقاط المهتمين (Lead Capture)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag4">مناطيس العملاء</span>
                     </div>
-                    <textarea id="box4" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="كيف ستجمع بيانات الاتصال بالمهتمين؟"></textarea>
+                    <textarea id="box4" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل التقاط المهتمين..."></textarea>
                 </div>
                 <!-- Card 5 -->
                 <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-teal-400">5. رعاية المهتمين (Lead Nurturing)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">بناء الثقة</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-teal-400" data-i18n="box5Title">5. رعاية المهتمين (Lead Nurturing)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag5">بناء الثقة</span>
                     </div>
-                    <textarea id="box5" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="كيف ستعامل وتثقف المهتمين بمرور الوقت لبناء الثقة؟"></textarea>
+                    <textarea id="box5" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل رعاية المهتمين..."></textarea>
                 </div>
                 <!-- Card 6 -->
                 <div class="plan-card phase-2-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-teal-400">6. تحويل المبيعات (Sales Conversion)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">إغلاق الصفقة</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-teal-400" data-i18n="box6Title">6. تحويل المبيعات (Sales Conversion)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag6">إبرام الصفقة</span>
                     </div>
-                    <textarea id="box6" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="ما هي استراتيجيتك لإقناعهم بالشراء وإغلاق الصفقات؟"></textarea>
+                    <textarea id="box6" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="أدخل تفاصيل تحويل المبيعات..."></textarea>
                 </div>
             </div>
         </div>
 
-        <!-- ================= PAGE 3: PHASE 3 (بعد) ================= -->
+        <!-- ================= PAGE 3: PHASE 3 ================= -->
         <div class="page-break space-y-4">
             <!-- Print Header Page 3 -->
             <div class="print-header">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
-                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
+                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
+                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 3 من 3</span>
+                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
+                    <span class="text-[8pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
                 </div>
             </div>
 
-            <!-- Web Title Phase 3 -->
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
-                <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثالثة</span>
-                <h2 class="text-lg font-bold text-purple-400">مرحلة "بعد" (تجربة العملاء، LTV، والإحالات)</h2>
-            </div>
-
-            <div class="flex flex-col flex-grow gap-4">
+            <div class="flex flex-col flex-grow gap-3">
                 <!-- Card 7 -->
                 <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-purple-400">7. تجربة عالمية (World-Class Experience)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">خدمة ما بعد البيع</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-purple-400" data-i18n="box7Title">7. تجربة عالمية (World-Class Experience)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag7">إبهار العميل</span>
                     </div>
-                    <textarea id="box7" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف ستجعل تجربة العميل استثنائية بعد الشراء؟"></textarea>
+                    <textarea id="box7" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل تجربة العملاء..."></textarea>
                 </div>
                 <!-- Card 8 -->
                 <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-purple-400">8. زيادة القيمة الدائمة (Lifetime Value - LTV)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">رفع القيمة</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-purple-400" data-i18n="box8Title">8. زيادة القيمة الدائمة (Lifetime Value - LTV)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag8">الترقيات والخدمات الإضافية</span>
                     </div>
-                    <textarea id="box8" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف ستزيد القيمة الدائمة للعميل؟ (بيع إضافي، اشتراكات...)"></textarea>
+                    <textarea id="box8" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل زيادة القيمة الدائمة..."></textarea>
                 </div>
                 <!-- Card 9 -->
                 <div class="plan-card phase-3-border glass-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold text-purple-400">9. نظام الإحالات والترشيحات (Referral System)</span>
-                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">التسويق بالتزكية</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-purple-400" data-i18n="box9Title">9. نظام الإحالات والترشيحات (Referrals)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print" data-i18n="tag9">سفراء العلامة التجارية</span>
                     </div>
-                    <textarea id="box9" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف تشجع العملاء على إحالة أصدقائهم؟"></textarea>
+                    <textarea id="box9" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="أدخل تفاصيل نظام الإحالات..."></textarea>
                 </div>
             </div>
         </div>
@@ -304,8 +296,134 @@
         <p>نظام التخطيط الاستراتيجي التفاعلي - جميع الحقوق محفوظة</p>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic & Translation Dictionaries -->
     <script>
+        const translations = {
+            ar: {
+                mainTitle: "خطة التسويق",
+                mainSubtitle: "وثيقة التخطيط الاستراتيجي التنفيذي",
+                saveBtn: "حفظ التغييرات",
+                printBtn: "طباعة / تصدير PDF",
+                printTopSub: "STRATEGIC MARKETING PLAN",
+                printTitle1: "خطة التسويق",
+                printTitle2: "خطة التسويق",
+                printTitle3: "خطة التسويق",
+                printDocType: "الوثيقة الاستراتيجية للنمو والتوسع",
+                companyName: "شركة الرؤية المستقبلية",
+                p1Indicator: "الصفحة 1 من 3",
+                p2Indicator: "الصفحة 2 من 3",
+                p3Indicator: "الصفحة 3 من 3",
+                box1Title: "1. السوق المستهدف (Target Market)",
+                box2Title: "2. الرسالة والعرض (USP & Value Offer)",
+                box3Title: "3. قنوات الإعلانات والوصول (Media Channels)",
+                box4Title: "4. التقاط المهتمين (Lead Capture)",
+                box5Title: "5. رعاية المهتمين (Lead Nurturing)",
+                box6Title: "6. تحويل المبيعات (Sales Conversion)",
+                box7Title: "7. تجربة عالمية (World-Class Experience)",
+                box8Title: "8. زيادة القيمة الدائمة (Lifetime Value - LTV)",
+                box9Title: "9. نظام الإحالات والترشيحات (Referrals)",
+                tag1: "تحديد العميل المثالي",
+                tag2: "عامل التميز",
+                tag3: "وسائل الاستقطاب",
+                tag4: "مناطيس العملاء",
+                tag5: "بناء الثقة",
+                tag6: "إبرام الصفقة",
+                tag7: "إبهار العميل",
+                tag8: "الترقيات والخدمات الإضافية",
+                tag9: "سفراء العلامة التجارية",
+                ph1Place: "أدخل تفاصيل السوق المستهدف...",
+                ph2Place: "أدخل تفاصيل الرسالة والعرض...",
+                ph3Place: "أدخل تفاصيل القنوات والوسائط...",
+                ph4Place: "أدخل تفاصيل التقاط المهتمين...",
+                ph5Place: "أدخل تفاصيل رعاية المهتمين...",
+                ph6Place: "أدخل تفاصيل تحويل المبيعات...",
+                ph7Place: "أدخل تفاصيل تجربة العملاء...",
+                ph8Place: "أدخل تفاصيل زيادة القيمة الدائمة...",
+                ph9Place: "أدخل تفاصيل نظام الإحالات..."
+            },
+            en: {
+                mainTitle: "Strategic Marketing Plan",
+                mainSubtitle: "Executive Strategic Planning Document",
+                saveBtn: "Save Changes",
+                printBtn: "Print / Export PDF",
+                printTopSub: "STRATEGIC MARKETING PLAN",
+                printTitle1: "Marketing Plan",
+                printTitle2: "Marketing Plan",
+                printTitle3: "Marketing Plan",
+                printDocType: "Strategic Growth & Expansion Document",
+                companyName: "Future Vision Company",
+                p1Indicator: "Page 1 of 3",
+                p2Indicator: "Page 2 of 3",
+                p3Indicator: "Page 3 of 3",
+                box1Title: "1. Target Market",
+                box2Title: "2. USP & Value Offer",
+                box3Title: "3. Media Channels",
+                box4Title: "4. Lead Capture",
+                box5Title: "5. Lead Nurturing",
+                box6Title: "6. Sales Conversion",
+                box7Title: "7. World-Class Experience",
+                box8Title: "8. Lifetime Value (LTV)",
+                box9Title: "9. Referral System",
+                tag1: "Ideal Client",
+                tag2: "Differentiation",
+                tag3: "Media & Reach",
+                tag4: "Lead Magnet",
+                tag5: "Trust Building",
+                tag6: "Closing",
+                tag7: "Delight",
+                tag8: "Upsell & Value",
+                tag9: "Brand Advocates",
+                ph1Place: "Enter target market details...",
+                ph2Place: "Enter USP & value offer details...",
+                ph3Place: "Enter media channels details...",
+                ph4Place: "Enter lead capture details...",
+                ph5Place: "Enter lead nurturing details...",
+                ph6Place: "Enter sales conversion details...",
+                ph7Place: "Enter world-class experience details...",
+                ph8Place: "Enter LTV expansion details...",
+                ph9Place: "Enter referral system details..."
+            }
+        };
+
+        let currentLang = localStorage.getItem('marketingLang') || 'ar';
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('marketingLang', lang);
+            const root = document.getElementById('htmlRoot');
+            
+            if (lang === 'en') {
+                root.setAttribute('dir', 'ltr');
+                root.setAttribute('lang', 'en');
+                document.getElementById('langBtnText').innerText = 'العربية';
+            } else {
+                root.setAttribute('dir', 'rtl');
+                root.setAttribute('lang', 'ar');
+                document.getElementById('langBtnText').innerText = 'English';
+            }
+
+            // ترجمة العناصر النصية الثابتة
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            // ترجمة الـ Placeholders
+            for (let i = 1; i <= 9; i++) {
+                const box = document.getElementById('box' + i);
+                if (box) {
+                    box.setAttribute('placeholder', translations[lang]['ph' + i + 'Place']);
+                }
+            }
+        }
+
+        function toggleLanguage() {
+            const newLang = currentLang === 'ar' ? 'en' : 'ar';
+            applyLanguage(newLang);
+        }
+
         function savePlan() {
             const data = {};
             for (let i = 1; i <= 9; i++) {
@@ -314,7 +432,7 @@
             localStorage.setItem('marketingPlanData', JSON.stringify(data));
             const btn = event.currentTarget;
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> تم الحفظ بنجاح';
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> ${currentLang === 'ar' ? 'تم الحفظ بنجاح' : 'Saved Successfully'}`;
             btn.classList.add('bg-green-700');
             setTimeout(() => {
                 btn.innerHTML = originalText;
@@ -335,15 +453,17 @@
         }
 
         function resetPlan() {
-            if (confirm('هل أنت متأكد من رغبتك في تفريغ جميع مربعات الخطة؟')) {
+            const msg = currentLang === 'ar' ? 'هل أنت متأكد من رغبتك في تفريغ جميع مربعات الخطة؟' : 'Are you sure you want to clear all plan boxes?';
+            if (confirm(msg)) {
                 for (let i = 1; i <= 9; i++) {
-                    document.getElementById('box' + i].value = '';
+                    document.getElementById('box' + i).value = '';
                 }
                 localStorage.removeItem('marketingPlanData');
             }
         }
 
         window.onload = function() {
+            applyLanguage(currentLang);
             loadPlan();
         };
     </script>
