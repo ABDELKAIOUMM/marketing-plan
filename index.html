@@ -34,7 +34,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 8mm;
+                margin: 6mm;
             }
 
             body {
@@ -52,18 +52,23 @@
                 display: none !important;
             }
 
-            /* هيكلة الصفحات الثلاث بدقة لمنع الترحيل */
+            /* هيكلة الصفحات الثلاث بدقة لمنع الترحيل والفراغات */
             .page-break {
                 page-break-after: always !important;
                 break-after: page !important;
-                height: 281mm !important; /* الارتفاع الفعلي الصافي لصفحة A4 بعد خصم هوامش @page */
-                max-height: 281mm !important;
-                padding: 4mm !important;
+                height: 285mm !important;
+                max-height: 285mm !important;
+                padding: 2mm !important;
                 box-sizing: border-box !important;
                 display: flex !important;
                 flex-direction: column !important;
                 background: #ffffff !important;
                 overflow: hidden !important;
+            }
+
+            .page-break:last-child {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
             }
 
             /* تحويل الحقول النصية إلى نصوص مطبوعة نقية */
@@ -74,8 +79,8 @@
                 resize: none !important;
                 box-shadow: none !important;
                 width: 100% !important;
-                font-size: 9pt !important;
-                line-height: 1.4 !important;
+                font-size: 8.5pt !important;
+                line-height: 1.35 !important;
                 color: #334155 !important;
                 font-family: 'Tajawal', 'Cairo', sans-serif !important;
             }
@@ -86,39 +91,30 @@
                 justify-content: space-between;
                 align-items: flex-start;
                 border-bottom: 2px solid #0f172a;
-                padding-bottom: 6px;
-                margin-bottom: 8px;
+                padding-bottom: 4px;
+                margin-bottom: 6px;
+                flex-shrink: 0;
             }
 
-            /* حاويات البطاقات */
+            /* حاويات البطاقات لمنع الانقسام والترحيل */
             .plan-card {
                 border: 1.5px solid #cbd5e1 !important;
-                border-radius: 6px !important;
-                padding: 8px 12px !important;
+                border-radius: 5px !important;
+                padding: 6px 10px !important;
                 background-color: #ffffff !important;
-                margin-bottom: 6px !important;
+                margin-bottom: 5px !important;
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
                 box-shadow: none !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
             }
 
             /* الحدود الملونة المميزة لكل مرحلة */
             .phase-1-border { border-right: 4px solid #2563eb !important; }
             .phase-2-border { border-right: 4px solid #0d9488 !important; }
             .phase-3-border { border-right: 4px solid #7c3aed !important; }
-
-            .print-banner {
-                padding: 6px 12px;
-                border-radius: 6px;
-                font-weight: 700;
-                font-size: 10pt;
-                margin-bottom: 8px;
-                color: white !important;
-            }
-            .bg-banner-1 { background-color: #2563eb !important; }
-            .bg-banner-2 { background-color: #0d9488 !important; }
-            .bg-banner-3 { background-color: #7c3aed !important; }
         }
 
         .print-header { display: none; }
@@ -160,21 +156,21 @@
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
         
         <!-- ================= PAGE 1: PHASE 1 ================= -->
-        <div class="page-break space-y-3">
+        <div class="page-break">
             <!-- Print Header Page 1 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
-                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
+                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7.5pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
+                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-2.5">
+            <div class="flex flex-col flex-grow gap-2">
                 <!-- Card 1 -->
                 <div class="plan-card phase-1-border glass-card">
                     <div class="flex justify-between items-center mb-1">
@@ -203,21 +199,21 @@
         </div>
 
         <!-- ================= PAGE 2: PHASE 2 ================= -->
-        <div class="page-break space-y-3">
+        <div class="page-break">
             <!-- Print Header Page 2 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
-                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
+                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7.5pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
+                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-2.5">
+            <div class="flex flex-col flex-grow gap-2">
                 <!-- Card 4 -->
                 <div class="plan-card phase-2-border glass-card">
                     <div class="flex justify-between items-center mb-1">
@@ -246,21 +242,21 @@
         </div>
 
         <!-- ================= PAGE 3: PHASE 3 ================= -->
-        <div class="page-break space-y-3">
+        <div class="page-break">
             <!-- Print Header Page 3 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
-                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[7.5pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-base font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
+                    <span class="text-[7pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
-                    <span class="text-[7.5pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
+                    <span class="text-[8pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-2.5">
+            <div class="flex flex-col flex-grow gap-2">
                 <!-- Card 7 -->
                 <div class="plan-card phase-3-border glass-card">
                     <div class="flex justify-between items-center mb-1">
