@@ -3,67 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خطة التسويق في صفحة واحدة - ألان ديب</title>
+    <title>خطة التسويق</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Tajawal & Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        tajawal: ['Tajawal', 'sans-serif'],
+                        tajawal: ['Tajawal', 'Cairo', 'sans-serif'],
+                        cairo: ['Cairo', 'sans-serif'],
                     },
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Tajawal', sans-serif; }
+        body { font-family: 'Tajawal', 'Cairo', sans-serif; }
         .glass-card {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        /* تحسينات الطباعة وتصدير الـ PDF الاحترافي */
+
+        /* الطباعة والتصدير الاحترافي لـ PDF */
         @media print {
-            body { background: white !important; color: #0f172a !important; }
-            .no-print { display: none !important; }
-            .glass-card { 
-                background: #ffffff !important; 
-                border: 1.5px solid #cbd5e1 !important; 
-                color: #0f172a !important; 
-                box-shadow: none !important;
-                break-inside: avoid;
-                margin-bottom: 15px;
+            @page {
+                size: A4 portrait;
+                margin: 0;
             }
-            textarea {
-                background: transparent !important;
-                color: #1e293b !important;
+
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-family: 'Tajawal', 'Cairo', sans-serif !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* إخفاء أدوات الويب وعناصر التحكم */
+            .no-print, button, nav, header.web-only, .action-buttons {
+                display: none !important;
+            }
+
+            /* هيكلة الصفحات الثلاث بدقة للطباعة */
+            .page-break {
+                page-break-after: always !important;
+                break-after: page !important;
+                min-height: 100vh !important;
+                height: 297mm;
+                padding: 14mm 12mm !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: column !important;
+                background: #ffffff !important;
+            }
+
+            /* تحويل الحقول النصية إلى نصوص مطبوعة نقية */
+            textarea, input {
                 border: none !important;
+                outline: none !important;
+                background: transparent !important;
                 resize: none !important;
-                font-size: 13px !important;
-                line-height: 1.6 !important;
-                height: auto !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                font-size: 9.5pt !important;
+                line-height: 1.5 !important;
+                color: #334155 !important;
+                font-family: 'Tajawal', 'Cairo', sans-serif !important;
             }
+
+            /* ترويسة التقرير المطبوع لكل صفحة */
             .print-header {
-                display: block !important;
-                text-align: center;
-                margin-bottom: 25px;
-                border-bottom: 2px solid #4f46e5;
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid #e2e8f0;
                 padding-bottom: 10px;
+                margin-bottom: 14px;
             }
+
+            /* حاويات البطاقات */
+            .plan-card {
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 8px !important;
+                padding: 12px 16px !important;
+                background-color: #f8fafc !important;
+                margin-bottom: 10px !important;
+                flex: 1 !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* الحدود الملونة المميزة لكل مرحلة */
+            .phase-1-border { border-right: 4px solid #2563eb !important; }
+            .phase-2-border { border-right: 4px solid #0d9488 !important; }
+            .phase-3-border { border-right: 4px solid #7c3aed !important; }
+
+            .phase-banner-print {
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-weight: 700;
+                font-size: 11pt;
+                margin-bottom: 12px;
+                color: white !important;
+            }
+            .bg-banner-1 { background-color: #2563eb !important; }
+            .bg-banner-2 { background-color: #0d9488 !important; }
+            .bg-banner-3 { background-color: #7c3aed !important; }
         }
+
+        /* إخفاء عناصر الطباعة في العرض العادي على الويب */
         .print-header { display: none; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
 
-    <!-- Header -->
+    <!-- Header (Web Only) -->
     <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 no-print">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
@@ -71,8 +133,8 @@
                     <i class="fa-solid fa-chart-pie text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">خطة التسويق في صفحة واحدة</h1>
-                    <p class="text-xs text-slate-400">منهجية ألان ديب (The 1-Page Marketing Plan)</p>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">خطة التسويق</h1>
+                    <p class="text-xs text-slate-400">وثيقة التخطيط الاستراتيجي التنفيذي</p>
                 </div>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
@@ -89,201 +151,157 @@
         </div>
     </header>
 
-    <!-- Print Header (Visible only in PDF/Print) -->
-    <div class="print-header px-8 pt-6">
-        <h1 class="text-2xl font-black text-slate-900">وثيقة خطة التسويق الاستراتيجية</h1>
-        <p class="text-sm text-slate-600 mt-1">بناءً على نموذج خطة التسويق في صفحة واحدة (Alan Dib)</p>
-        <div class="text-xs text-slate-500 mt-2">تاريخ الطباعة: <span id="printDate"></span></div>
-    </div>
-
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
         
-        <!-- Sidebar Tools & Guide -->
-        <div class="lg:col-span-1 space-y-6 no-print">
-            <div class="glass-card p-5 rounded-2xl shadow-xl">
-                <h2 class="text-base font-bold text-indigo-400 mb-3 flex items-center gap-2">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> أدوات مساعدة ذكية
-                </h2>
-                <div class="space-y-3 text-sm">
-                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-                        <h3 class="font-bold text-slate-200 text-xs mb-1">حاسبة PVP (السوق المستهدف)</h3>
-                        <p class="text-xs text-slate-400 mb-2">قيم السوق: الشخص المثالي، القيمة، والقدرة الشرائية.</p>
-                        <button onclick="openModal('pvpModal')" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold flex items-center gap-1">افتح الأداة <i class="fa-solid fa-arrow-left"></i></button>
-                    </div>
-                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-                        <h3 class="font-bold text-slate-200 text-xs mb-1">صياغة الـ Elevator Pitch</h3>
-                        <p class="text-xs text-slate-400 mb-2">ابنِ رسالة تسويقية سريعة تخطف الانتباه في ثوانٍ.</p>
-                        <button onclick="openModal('pitchModal')" class="text-indigo-400 hover:text-indigo-300 text-xs font-bold flex items-center gap-1">افتح الأداة <i class="fa-solid fa-arrow-left"></i></button>
-                    </div>
+        <!-- ================= PAGE 1: PHASE 1 (قبل) ================= -->
+        <div class="page-break space-y-4">
+            <!-- Print Header Page 1 -->
+            <div class="print-header">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
+                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
+                </div>
+                <div class="text-left">
+                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 1 من 3</span>
                 </div>
             </div>
 
-            <div class="glass-card p-5 rounded-2xl shadow-xl border-indigo-500/20">
-                <h3 class="text-sm font-bold text-slate-200 mb-2 flex items-center gap-2">
-                    <i class="fa-solid fa-circle-info text-indigo-400"></i> دليل الاستخدام السريع
-                </h3>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                    تنقسم الخطة إلى 3 مراحل رئيسية: <strong>قبل (Before)</strong> لجذب الانتباه، <strong>أثناء (During)</strong> لبناء الثقة والتحويل، و<strong>بعد (After)</strong> لتعظيم القيمة والولاء. املأ كل مربّع بعناية وبنقاط مختصرة.
-                </p>
+            <!-- Web Title Phase 1 -->
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
+                <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الأولى</span>
+                <h2 class="text-lg font-bold text-blue-400">مرحلة "قبل" (السوق المستهدف والرسالة وجذب الانتباه)</h2>
+            </div>
+
+            <div class="phase-banner-print bg-banner-1 no-print hidden">المرحلة الأولى: قبل (السوق المستهدف والرسالة وجذب الانتباه)</div>
+
+            <div class="flex flex-col flex-grow gap-4">
+                <!-- Card 1 -->
+                <div class="plan-card phase-1-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-blue-400">1. السوق المستهدف (Target Market)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">جمهورك المثالي</span>
+                    </div>
+                    <textarea id="box1" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="من هو عميلك المثالي؟ ما هي مواصفاته وأحلامه ومشاكله؟"></textarea>
+                </div>
+                <!-- Card 2 -->
+                <div class="plan-card phase-1-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-blue-400">2. الرسالة والعرض (USP & Value Offer)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">عرض البيع الفريد</span>
+                    </div>
+                    <textarea id="box2" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="ما هي الرسالة التي ستوجهها لهم؟ ولماذا يجب أن يختاروك أنت بالذات؟"></textarea>
+                </div>
+                <!-- Card 3 -->
+                <div class="plan-card phase-1-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-blue-400">3. قنوات الإعلانات والوصول (Media Channels)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">الوصول للجمهور</span>
+                    </div>
+                    <textarea id="box3" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none" placeholder="ما هي الوسائط والقنوات التي ستستخدمها للوصول إليهم؟"></textarea>
+                </div>
             </div>
         </div>
 
-        <!-- The 9-Box Grid -->
-        <div class="lg:col-span-3 space-y-6">
-            
-            <!-- Phase 1: BEFORE -->
-            <div class="space-y-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2">
-                    <span class="bg-amber-500/10 text-amber-500 border border-amber-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الأولى</span>
-                    <h2 class="text-lg font-bold text-amber-500">مرحلة "قبل" (السوق المستهدف والرسالة وجذب الانتباه)</h2>
+        <!-- ================= PAGE 2: PHASE 2 (أثناء) ================= -->
+        <div class="page-break space-y-4">
+            <!-- Print Header Page 2 -->
+            <div class="print-header">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
+                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Box 1 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-amber-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">1. السوق المستهدف</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">جمهورك المثالي</span>
-                        </div>
-                        <textarea id="box1" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500 resize-none" placeholder="من هو عميلك المثالي؟ ما هي مواصفاته وأحلامه ومشاكله؟"></textarea>
-                    </div>
-                    <!-- Box 2 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-amber-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">2. الرسالة والعرض (USP)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">عرض البيع الفريد</span>
-                        </div>
-                        <textarea id="box2" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500 resize-none" placeholder="ما هي الرسالة التي ستوجهها لهم؟ ولماذا يجب أن يختاروك أنت بالذات؟"></textarea>
-                    </div>
-                    <!-- Box 3 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-amber-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">3. قنوات الإعلانات</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">الوصول للجمهور</span>
-                        </div>
-                        <textarea id="box3" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500 resize-none" placeholder="ما هي الوسائط والقنوات التي ستستخدمها للوصول إليهم؟"></textarea>
-                    </div>
+                <div class="text-left">
+                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 2 من 3</span>
                 </div>
             </div>
 
-            <!-- Phase 2: DURING -->
-            <div class="space-y-4 pt-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2">
-                    <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثانية</span>
-                    <h2 class="text-lg font-bold text-indigo-400">مرحلة "أثناء" (التقاط المهتمين ورعايتهم وإتمام البيع)</h2>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Box 4 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-indigo-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">4. التقاط المهتمين (Leads)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">استراتيجية الجذب</span>
-                        </div>
-                        <textarea id="box4" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 resize-none" placeholder="كيف ستجمع بيانات الاتصال بالمهتمين؟"></textarea>
-                    </div>
-                    <!-- Box 5 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-indigo-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">5. رعاية المهتمين (Nurture)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">بناء الثقة</span>
-                        </div>
-                        <textarea id="box5" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 resize-none" placeholder="كيف ستعامل وتثقف المهتمين بمرور الوقت لبناء الثقة؟"></textarea>
-                    </div>
-                    <!-- Box 6 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-indigo-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">6. تحويل المبيعات (Sales)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">إغلاق الصفقة</span>
-                        </div>
-                        <textarea id="box6" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 resize-none" placeholder="ما هي استراتيجيتك لإقناعهم بالشراء وإغلاق الصفقات؟"></textarea>
-                    </div>
-                </div>
+            <!-- Web Title Phase 2 -->
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
+                <span class="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثانية</span>
+                <h2 class="text-lg font-bold text-teal-400">مرحلة "أثناء" (التقاط المهتمين ورعايتهم وإتمام البيع)</h2>
             </div>
 
-            <!-- Phase 3: AFTER -->
-            <div class="space-y-4 pt-4">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2">
-                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثالثة</span>
-                    <h2 class="text-lg font-bold text-emerald-400">مرحلة "بعد" (تقديم التجربة، تعظيم القيمة، والإحالات)</h2>
+            <div class="flex flex-col flex-grow gap-4">
+                <!-- Card 4 -->
+                <div class="plan-card phase-2-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-teal-400">4. التقاط المهتمين (Lead Capture)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">استراتيجية الجذب</span>
+                    </div>
+                    <textarea id="box4" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="كيف ستجمع بيانات الاتصال بالمهتمين؟"></textarea>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Box 7 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-emerald-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">7. تجربة عالمية (World-Class)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">خدمة ما بعد البيع</span>
-                        </div>
-                        <textarea id="box7" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 resize-none" placeholder="كيف ستجعل تجربة العميل استثنائية بعد الشراء؟"></textarea>
+                <!-- Card 5 -->
+                <div class="plan-card phase-2-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-teal-400">5. رعاية المهتمين (Lead Nurturing)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">بناء الثقة</span>
                     </div>
-                    <!-- Box 8 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-emerald-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">8. زيادة القيمة (LTV)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">رفع القيمة الدائمة</span>
-                        </div>
-                        <textarea id="box8" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 resize-none" placeholder="كيف ستزيد القيمة الدائمة للعميل؟ (بيع إضافي، اشتراكات...)"></textarea>
+                    <textarea id="box5" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="كيف ستعامل وتثقف المهتمين بمرور الوقت لبناء الثقة؟"></textarea>
+                </div>
+                <!-- Card 6 -->
+                <div class="plan-card phase-2-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-teal-400">6. تحويل المبيعات (Sales Conversion)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">إغلاق الصفقة</span>
                     </div>
-                    <!-- Box 9 -->
-                    <div class="glass-card p-4 rounded-2xl flex flex-col h-64 shadow-lg border-t-4 border-emerald-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-slate-400">9. نظام الإحالات (Referrals)</span>
-                            <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">التسويق بالتزكية</span>
-                        </div>
-                        <textarea id="box9" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-emerald-500 resize-none" placeholder="كيف تشجع العملاء على إحالة أصدقائهم؟"></textarea>
-                    </div>
+                    <textarea id="box6" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-teal-500 resize-none" placeholder="ما هي استراتيجيتك لإقناعهم بالشراء وإغلاق الصفقات؟"></textarea>
                 </div>
             </div>
-
         </div>
+
+        <!-- ================= PAGE 3: PHASE 3 (بعد) ================= -->
+        <div class="page-break space-y-4">
+            <!-- Print Header Page 3 -->
+            <div class="print-header">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">خطة التسويق</h2>
+                    <p class="text-xs text-slate-600">وثيقة التخطيط الاستراتيجي التنفيذي - الشركة التجارية</p>
+                </div>
+                <div class="text-left">
+                    <span class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">الصفحة 3 من 3</span>
+                </div>
+            </div>
+
+            <!-- Web Title Phase 3 -->
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-2 no-print">
+                <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full text-xs font-bold">المرحلة الثالثة</span>
+                <h2 class="text-lg font-bold text-purple-400">مرحلة "بعد" (تجربة العملاء، LTV، والإحالات)</h2>
+            </div>
+
+            <div class="flex flex-col flex-grow gap-4">
+                <!-- Card 7 -->
+                <div class="plan-card phase-3-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-purple-400">7. تجربة عالمية (World-Class Experience)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">خدمة ما بعد البيع</span>
+                    </div>
+                    <textarea id="box7" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف ستجعل تجربة العميل استثنائية بعد الشراء؟"></textarea>
+                </div>
+                <!-- Card 8 -->
+                <div class="plan-card phase-3-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-purple-400">8. زيادة القيمة الدائمة (Lifetime Value - LTV)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">رفع القيمة</span>
+                    </div>
+                    <textarea id="box8" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف ستزيد القيمة الدائمة للعميل؟ (بيع إضافي، اشتراكات...)"></textarea>
+                </div>
+                <!-- Card 9 -->
+                <div class="plan-card phase-3-border glass-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-purple-400">9. نظام الإحالات والترشيحات (Referral System)</span>
+                        <span class="bg-slate-800 text-slate-300 text-[10px] px-2 py-0.5 rounded no-print">التسويق بالتزكية</span>
+                    </div>
+                    <textarea id="box9" class="w-full flex-grow bg-slate-900/50 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 resize-none" placeholder="كيف تشجع العملاء على إحالة أصدقائهم؟"></textarea>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-    <!-- Modals -->
-    <div id="pvpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card max-w-lg w-full p-6 rounded-2xl border border-slate-700 shadow-2xl relative">
-            <button onclick="closeModal('pvpModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="text-lg font-bold text-indigo-400 mb-4">تحليل السوق (PVP Index)</h3>
-            <div class="space-y-4 text-sm">
-                <div>
-                    <label class="block text-slate-300 font-bold mb-1">1. شخص مثالي تستمتع بالعمل معه (Personal):</label>
-                    <input type="text" id="pvp1" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="من هو الشخص الذي تحب التعامل معه؟">
-                </div>
-                <div>
-                    <label class="block text-slate-300 font-bold mb-1">2. قيمة عالية تقدمها لهم (Value):</label>
-                    <input type="text" id="pvp2" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="ما المشكلة الكبيرة التي تحلها لهم؟">
-                </div>
-                <div>
-                    <label class="block text-slate-300 font-bold mb-1">3. قدرة وشهية للشراء (Pockets):</label>
-                    <input type="text" id="pvp3" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="هل يمتلكون المال الكافي ولديهم استعداد للدفع؟">
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('pvpModal')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium">إغلاق</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="pitchModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card max-w-lg w-full p-6 rounded-2xl border border-slate-700 shadow-2xl relative">
-            <button onclick="closeModal('pitchModal')" class="absolute top-4 left-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="text-lg font-bold text-indigo-400 mb-4">مُولّد الـ Elevator Pitch</h3>
-            <div class="space-y-4 text-sm">
-                <p class="text-xs text-slate-400">امتلأ الفراغات لتكوين جملة تسويقية سريعة تخطف الانتباه:</p>
-                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 text-slate-200 leading-loose">
-                    "أنت تعلم أن <input type="text" id="pitch1" placeholder="[المشكلة]" class="bg-slate-800 border-b border-indigo-400 px-2 py-1 text-xs text-white focus:outline-none inline-block w-32 mx-1"> يعانون من مشكلة <input type="text" id="pitch2" placeholder="[الألم]" class="bg-slate-800 border-b border-indigo-400 px-2 py-1 text-xs text-white focus:outline-none inline-block w-32 mx-1">. ما نقوم به هو <input type="text" id="pitch3" placeholder="[الحل أو الخدمة]" class="bg-slate-800 border-b border-indigo-400 px-2 py-1 text-xs text-white focus:outline-none inline-block w-32 mx-1">، على عكس الآخرين، نحن نمتلك ميزة <input type="text" id="pitch4" placeholder="[الميزة الفريدة]" class="bg-slate-800 border-b border-indigo-400 px-2 py-1 text-xs text-white focus:outline-none inline-block w-32 mx-1">."
-                </div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal('pitchModal')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium">تم الحفظ</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
+    <!-- Footer (Web Only) -->
     <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-xs text-slate-500 no-print">
-        <p>تطبيق تفاعلي مستوحى من كتاب The 1-Page Marketing Plan لـ Alan Dib</p>
+        <p>نظام التخطيط الاستراتيجي التفاعلي - جميع الحقوق محفوظة</p>
     </footer>
 
     <!-- JavaScript Logic -->
@@ -319,20 +337,14 @@
         function resetPlan() {
             if (confirm('هل أنت متأكد من رغبتك في تفريغ جميع مربعات الخطة؟')) {
                 for (let i = 1; i <= 9; i++) {
-                    document.getElementById('box' + i).value = '';
+                    document.getElementById('box' + i].value = '';
                 }
                 localStorage.removeItem('marketingPlanData');
             }
         }
 
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
         window.onload = function() {
             loadPlan();
-            // وضع تاريخ اليوم في الترويعة الخاصة بالطباعة
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('printDate').innerText = new Date().toLocaleDateString('ar-SA', options);
         };
     </script>
 </body>
