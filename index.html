@@ -34,7 +34,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 0;
+                margin: 8mm;
             }
 
             body {
@@ -52,17 +52,18 @@
                 display: none !important;
             }
 
-            /* هيكلة الصفحات الثلاث بدقة للطباعة */
+            /* هيكلة الصفحات الثلاث بدقة لمنع الترحيل */
             .page-break {
                 page-break-after: always !important;
                 break-after: page !important;
-                min-height: 100vh !important;
-                height: 297mm;
-                padding: 12mm 10mm !important;
+                height: 281mm !important; /* الارتفاع الفعلي الصافي لصفحة A4 بعد خصم هوامش @page */
+                max-height: 281mm !important;
+                padding: 4mm !important;
                 box-sizing: border-box !important;
                 display: flex !important;
                 flex-direction: column !important;
                 background: #ffffff !important;
+                overflow: hidden !important;
             }
 
             /* تحويل الحقول النصية إلى نصوص مطبوعة نقية */
@@ -73,29 +74,29 @@
                 resize: none !important;
                 box-shadow: none !important;
                 width: 100% !important;
-                font-size: 9.5pt !important;
-                line-height: 1.5 !important;
+                font-size: 9pt !important;
+                line-height: 1.4 !important;
                 color: #334155 !important;
                 font-family: 'Tajawal', 'Cairo', sans-serif !important;
             }
 
-            /* ترويسة التقرير المطبوع لكل صفحة متوافقة مع الصورة */
+            /* ترويسة التقرير المطبوع لكل صفحة */
             .print-header {
                 display: flex !important;
                 justify-content: space-between;
                 align-items: flex-start;
                 border-bottom: 2px solid #0f172a;
-                padding-bottom: 8px;
-                margin-bottom: 12px;
+                padding-bottom: 6px;
+                margin-bottom: 8px;
             }
 
             /* حاويات البطاقات */
             .plan-card {
                 border: 1.5px solid #cbd5e1 !important;
-                border-radius: 8px !important;
-                padding: 10px 14px !important;
+                border-radius: 6px !important;
+                padding: 8px 12px !important;
                 background-color: #ffffff !important;
-                margin-bottom: 10px !important;
+                margin-bottom: 6px !important;
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
@@ -112,7 +113,7 @@
                 border-radius: 6px;
                 font-weight: 700;
                 font-size: 10pt;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
                 color: white !important;
             }
             .bg-banner-1 { background-color: #2563eb !important; }
@@ -159,23 +160,21 @@
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-12">
         
         <!-- ================= PAGE 1: PHASE 1 ================= -->
-        <div class="page-break space-y-4">
+        <div class="page-break space-y-3">
             <!-- Print Header Page 1 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
-                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle1">خطة التسويق</h2>
+                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
-                    <span class="text-[8pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
+                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7.5pt] text-slate-500" data-i18n="p1Indicator">الصفحة 1 من 3</span>
                 </div>
             </div>
 
-            <div class="print-banner bg-banner-1 no-print hidden" data-i18n="banner1">المرحلة الأولى: مرحلة "قبل" (السوق المستهدف والرسالة وجذب الانتباه)</div>
-
-            <div class="flex flex-col flex-grow gap-3">
+            <div class="flex flex-col flex-grow gap-2.5">
                 <!-- Card 1 -->
                 <div class="plan-card phase-1-border glass-card">
                     <div class="flex justify-between items-center mb-1">
@@ -204,21 +203,21 @@
         </div>
 
         <!-- ================= PAGE 2: PHASE 2 ================= -->
-        <div class="page-break space-y-4">
+        <div class="page-break space-y-3">
             <!-- Print Header Page 2 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
-                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle2">خطة التسويق</h2>
+                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
-                    <span class="text-[8pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
+                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7.5pt] text-slate-500" data-i18n="p2Indicator">الصفحة 2 من 3</span>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-3">
+            <div class="flex flex-col flex-grow gap-2.5">
                 <!-- Card 4 -->
                 <div class="plan-card phase-2-border glass-card">
                     <div class="flex justify-between items-center mb-1">
@@ -247,21 +246,21 @@
         </div>
 
         <!-- ================= PAGE 3: PHASE 3 ================= -->
-        <div class="page-break space-y-4">
+        <div class="page-break space-y-3">
             <!-- Print Header Page 3 -->
             <div class="print-header">
                 <div>
-                    <span class="text-[9pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
-                    <h2 class="text-xl font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
-                    <span class="text-[8pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
+                    <span class="text-[8pt] text-slate-500 block uppercase tracking-wider" data-i18n="printTopSub">STRATEGIC MARKETING PLAN</span>
+                    <h2 class="text-lg font-black text-slate-900" data-i18n="printTitle3">خطة التسويق</h2>
+                    <span class="text-[7.5pt] text-slate-600" data-i18n="printDocType">الوثيقة الاستراتيجية للنمو والتوسع</span>
                 </div>
                 <div class="text-left">
-                    <span class="text-[9pt] font-bold text-slate-700 block" data-i18n="companyName">الشركة الرؤية المستقبلية</span>
-                    <span class="text-[8pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
+                    <span class="text-[8.5pt] font-bold text-slate-700 block" data-i18n="companyName">شركة الرؤية المستقبلية</span>
+                    <span class="text-[7.5pt] text-slate-500" data-i18n="p3Indicator">الصفحة 3 من 3</span>
                 </div>
             </div>
 
-            <div class="flex flex-col flex-grow gap-3">
+            <div class="flex flex-col flex-grow gap-2.5">
                 <!-- Card 7 -->
                 <div class="plan-card phase-3-border glass-card">
                     <div class="flex justify-between items-center mb-1">
@@ -402,7 +401,6 @@
                 document.getElementById('langBtnText').innerText = 'English';
             }
 
-            // ترجمة العناصر النصية الثابتة
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
@@ -410,7 +408,6 @@
                 }
             });
 
-            // ترجمة الـ Placeholders
             for (let i = 1; i <= 9; i++) {
                 const box = document.getElementById('box' + i);
                 if (box) {
